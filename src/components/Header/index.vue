@@ -62,15 +62,24 @@ export default {
       //   `/search/${this.keyword}?k=${this.keyword.toLocaleUpperCase()}`
       // )
       // 对象
-      this.$router.push({
-        name: 'search',
-        params: {
-          keyword: this.keyword || undefined,
-        },
-        query: {
-          k: this.keyword,
-        },
-      })
+      this.$router.push(
+        {
+          name: 'search',
+          params: {
+            keyword: this.keyword || undefined,
+          },
+          query: {
+            k: this.keyword,
+          },
+        }
+        // 可以解决问题，但是不能普遍使用
+        // (response) => {
+        //   console.log(response)
+        // },
+        // (error) => {
+        //   console.log(error)
+        // }
+      )
     },
   },
 }
