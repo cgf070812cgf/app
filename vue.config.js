@@ -7,7 +7,13 @@ module.exports = defineConfig({
     port: 8080,
     https: false,
     hot: false,
-    proxy: null
+    proxy: {
+      //会把请求路径中的/api换为后面的代理服务器
+      '/api': {
+        //提供数据的服务器地址
+        target: 'http://gmall-h5-api.atguigu.cn',
+      }
+    }
   },
 
   // 关闭eslint语法检测
