@@ -98,8 +98,8 @@
 
 <script>
 export default {
-  name: 'indexFooter',
-};
+  name: 'FooterVue',
+}
 </script>
 
 <style lang="less" scoped>

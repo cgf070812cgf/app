@@ -22,7 +22,7 @@ import FloorVue from './Floor'
 import BrandVue from './Brand'
 
 export default {
-  name: 'indexHome',
+  name: 'HomeVue',
   components: {
     ListContainer,
     TodayRecommend,

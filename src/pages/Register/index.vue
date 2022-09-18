@@ -6,7 +6,7 @@
 
 <script>
 export default {
-  name: 'indexRegister',
+  name: 'RegisterVue',
 }
 </script>
 

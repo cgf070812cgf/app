@@ -7,7 +7,7 @@
 
 <script>
 export default {
-  name: 'indexSearch',
+  name: 'SearchVue',
 }
 </script>
 

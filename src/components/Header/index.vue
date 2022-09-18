@@ -44,7 +44,7 @@
 
 <script>
 export default {
-  name: 'indexHeader',
+  name: 'HeaderVue',
   data() {
     return {
       keyword: '',
