@@ -6,8 +6,7 @@
     <TodayRecommend />
     <RankVue />
     <LikeVue />
-    <FloorVue />
-    <FloorVue />
+    <FloorVue v-for="floor in floorList" :key="floor.id" :floor="floor" />
     <BrandVue />
   </div>
 </template>
@@ -21,6 +20,8 @@ import LikeVue from './Like'
 import FloorVue from './Floor'
 import BrandVue from './Brand'
 
+import { mapState } from 'vuex'
+
 export default {
   name: 'HomeVue',
   components: {
@@ -30,6 +31,12 @@ export default {
     LikeVue,
     FloorVue,
     BrandVue,
+  },
+  mounted() {
+    this.$store.dispatch('getFloorList')
+  },
+  computed: {
+    ...mapState({ floorList: (state) => state.home.floorList }),
   },
 }
 </script>

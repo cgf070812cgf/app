@@ -2,7 +2,7 @@
   <div>
     <HeaderVue />
     <router-view></router-view>
-    <FooterVue v-show="$route.meta.show"></FooterVue>
+    <FooterVue v-show="$route.meta.show" />
   </div>
 </template>
 
@@ -15,7 +15,9 @@ export default {
     HeaderVue,
     FooterVue,
   },
-  methods: {},
+  mounted() {
+    this.$store.dispatch('getCategoryList')
+  },
 }
 </script>
 

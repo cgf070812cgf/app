@@ -2,36 +2,38 @@
   <div class="type-nav">
     <div class="container">
       <!-- 事件委派｜事件代理 -->
-      <div @mouseleave="leaveList">
+      <div @mouseleave="leaveShow" @mouseenter="enterShow">
         <h2 class="all">全部商品分类</h2>
-        <!-- 三级联动 -->
-        <div class="sort">
-          <!-- 利用事件的委派和编程式导航实现路由跳转和参数传递 -->
-          <div class="all-sort-list2" @click="goSearch($event)">
-            <div class="item" v-for="(c1,index) in categoryList" :key="c1.categoryId">
-              <!-- 一级分类 -->
-              <h3 @mouseenter="changeIndex(index)" :class="{cur:listIndex===index}">
-                <a :data-categoryName="c1.categoryName" :data-category1Id="c1.categoryId">{{c1.categoryName}}</a>
-              </h3>
-              <!-- 二级分类 -->
-              <div class="item-list clearfix" :style="{display:listIndex===index?'block':'none'}">
-                <div class="subitem" v-for="c2 in c1.categoryChild" :key="c2.categoryId">
-                  <dl class="fore">
-                    <dt>
-                      <a :data-categoryName="c2.categoryName" :data-category2Id="c2.categoryId">{{c2.categoryName}}</a>
-                    </dt>
-                    <!-- 三级分类 -->
-                    <dd>
-                      <em v-for="c3 in c2.categoryChild" :key="c3.categoryId">
-                        <a :data-categoryName="c3.categoryName" :data-category3Id="c3.categoryId">{{c3.categoryName}}</a>
-                      </em>
-                    </dd>
-                  </dl>
+        <transition name="sort">
+          <!-- 三级联动 -->
+          <div class="sort" v-show="show">
+            <!-- 利用事件的委派和编程式导航实现路由跳转和参数传递 -->
+            <div class="all-sort-list2" @click="goSearch($event)">
+              <div class="item" v-for="(c1,index) in categoryList" :key="c1.categoryId">
+                <!-- 一级分类 -->
+                <h3 @mouseenter="changeIndex(index)" :class="{cur:listIndex===index}">
+                  <a :data-categoryName="c1.categoryName" :data-category1Id="c1.categoryId">{{c1.categoryName}}</a>
+                </h3>
+                <!-- 二级分类 -->
+                <div class="item-list clearfix" :style="{display:listIndex===index?'block':'none'}">
+                  <div class="subitem" v-for="c2 in c1.categoryChild" :key="c2.categoryId">
+                    <dl class="fore">
+                      <dt>
+                        <a :data-categoryName="c2.categoryName" :data-category2Id="c2.categoryId">{{c2.categoryName}}</a>
+                      </dt>
+                      <!-- 三级分类 -->
+                      <dd>
+                        <em v-for="c3 in c2.categoryChild" :key="c3.categoryId">
+                          <a :data-categoryName="c3.categoryName" :data-category3Id="c3.categoryId">{{c3.categoryName}}</a>
+                        </em>
+                      </dd>
+                    </dl>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
+        </transition>
       </div>
 
       <nav class="nav">
@@ -59,6 +61,7 @@ export default {
   data() {
     return {
       listIndex: -1,
+      show: true,
     }
   },
   methods: {
@@ -66,9 +69,16 @@ export default {
     changeIndex: throttle(function (index) {
       this.listIndex = index
     }, 50),
+    // 鼠标进入后处理
+    enterShow() {
+      this.show = true
+    },
     // 鼠标离开后处理
-    leaveList() {
+    leaveShow() {
       this.listIndex = -1
+      if (this.$route.path === '/search') {
+        this.show = false
+      }
     },
 
     // 进行路由跳转的方法
@@ -91,6 +101,7 @@ export default {
           query.category3Id = category3id
         }
         toLoaction.query = query
+        toLoaction.params = this.$route.params ? this.$route.params : {}
         this.$router.push(toLoaction)
       }
     },
@@ -98,14 +109,14 @@ export default {
 
   mounted() {
     // 当组件挂载完毕，发送请求获取数据，存储到仓库
-    this.$store.dispatch('categoryList')
+    if (this.$route.path === '/search') {
+      this.show = false
+    }
   },
 
   computed: {
     ...mapState({
-      categoryList: (state) => {
-        return state.home.categoryList
-      },
+      categoryList: (state) => state.home.categoryList,
     }),
   },
 }
@@ -231,6 +242,20 @@ export default {
           // }
         }
       }
+    }
+
+    // 过渡动画
+    // 过渡动画，开始进入
+    .sort-enter {
+      height: 0;
+    }
+
+    .sort-enter-to {
+      height: 461px;
+    }
+
+    .sort-enter-active {
+      transition: all 0.4s linear;
     }
   }
 }
