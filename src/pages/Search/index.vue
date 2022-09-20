@@ -7,7 +7,7 @@
         <div class="bread">
           <ul class="fl sui-breadcrumb">
             <li>
-              <a href="#">全部结果</a>
+              <a href="javascript:void(0);">全部结果</a>
             </li>
           </ul>
           <ul class="fl sui-tag">
@@ -43,23 +43,17 @@
             <div class="navbar-inner filter">
               <!-- 价格结构 -->
               <ul class="sui-nav">
-                <li class="active">
-                  <a href="#">综合</a>
+                <li :class="{active:isOne}" @click="changeOrder('1')">
+                  <a href="javascript:void(0);">
+                    综合
+                    <span v-show="isOne" class="iconfont" :class="{'icon-direction-up':isUp,'icon-direction-down':isDown}"></span>
+                  </a>
                 </li>
-                <li>
-                  <a href="#">销量</a>
-                </li>
-                <li>
-                  <a href="#">新品</a>
-                </li>
-                <li>
-                  <a href="#">评价</a>
-                </li>
-                <li>
-                  <a href="#">价格⬆</a>
-                </li>
-                <li>
-                  <a href="#">价格⬇</a>
+                <li :class=" {active:isTwo}" @click="changeOrder('2')">
+                  <a href="javascript:void(0);">
+                    价格
+                    <span v-show="isTwo" class="iconfont" :class="{'icon-direction-up':isUp,'icon-direction-down':isDown}"></span>
+                  </a>
                 </li>
               </ul>
             </div>
@@ -95,35 +89,7 @@
             </ul>
           </div>
           <!-- 分页器 -->
-          <div class="fr page">
-            <div class="sui-pagination clearfix">
-              <ul>
-                <li class="prev disabled">
-                  <a href="#">«上一页</a>
-                </li>
-                <li class="active">
-                  <a href="#">1</a>
-                </li>
-                <li>
-                  <a href="#">2</a>
-                </li>
-                <li>
-                  <a href="#">3</a>
-                </li>
-                <li>
-                  <a href="#">4</a>
-                </li>
-                <li>
-                  <a href="#">5</a>
-                </li>
-                <li class="dotted"><span>...</span></li>
-                <li class="next">
-                  <a href="#">下一页»</a>
-                </li>
-              </ul>
-              <div><span>共10页&nbsp;</span></div>
-            </div>
-          </div>
+          <PaginationVue />
         </div>
       </div>
     </div>
@@ -147,7 +113,7 @@ export default {
         category3Id: '', // 三级分类的id
         categoryName: '', // 分类的名字
         keyword: '', // 关键字
-        order: '', // 排序
+        order: '1:desc', // 排序默认综合降序（desc）排序
         pageNo: 1, // 分页器的第几页
         pageSize: 10, // 每页展示几个
         props: [], // 平台售卖的属性带的参数
@@ -198,9 +164,36 @@ export default {
       this.searchParams.props.splice(index, 1)
       this.getData()
     },
+    // 修改排序顺序
+    changeOrder(flag) {
+      const originalTarget = this.searchParams.order.split(':')[0]
+      const originalOrder = this.searchParams.order.split(':')[1]
+      let newOrder = ''
+      if (flag === originalTarget) {
+        newOrder = `${originalTarget}:${
+          originalOrder === 'desc' ? 'asc' : 'desc'
+        }`
+      } else {
+        newOrder = `${flag}:desc`
+      }
+      this.searchParams.order = newOrder
+      this.getData()
+    },
   },
   computed: {
     ...mapGetters(['goodsList']),
+    isOne() {
+      return this.searchParams.order.indexOf('1') !== -1
+    },
+    isTwo() {
+      return this.searchParams.order.indexOf('2') !== -1
+    },
+    isUp() {
+      return this.searchParams.order.indexOf('asc') !== -1
+    },
+    isDown() {
+      return this.searchParams.order.indexOf('desc') !== -1
+    },
   },
   // 组件挂载完成之前
   beforeMount() {
@@ -211,6 +204,9 @@ export default {
   },
   watch: {
     $route() {
+      this.searchParams.category1Id = undefined
+      this.searchParams.category2Id = undefined
+      this.searchParams.category3Id = undefined
       Object.assign(this.searchParams, this.$route.params, this.$route.query)
       this.getData()
     },
