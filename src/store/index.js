@@ -8,7 +8,7 @@ Vue.use(Vuex)
 
 
 export default new Vuex.Store({
-  // 实现Vue小、模块化开发
+  // 实现Vue模块化开发
   modules: {
     home,
     search

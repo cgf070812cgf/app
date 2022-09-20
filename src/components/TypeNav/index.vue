@@ -109,7 +109,7 @@ export default {
 
   mounted() {
     // 当组件挂载完毕，发送请求获取数据，存储到仓库
-    if (this.$route.path === '/search') {
+    if (this.$route.path.slice(0, 7) === '/search') {
       this.show = false
     }
   },

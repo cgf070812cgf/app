@@ -10,3 +10,8 @@ export const reqGetCategoryList = () => requests.get('/product/getBaseCategoryLi
 export const reqGetBannerList = () => mockRequests.get('/banner')
 // 获取home轮播图的接口
 export const reqGetFloorList = () => mockRequests.get('/floor')
+
+// 获取搜索模块数据的接口
+// /api/list post 有参数：
+
+export const reqGetSearchInfo = (params) => requests({ url: '/list', method: 'POST', data: params }) 
