@@ -70,17 +70,13 @@ export default {
         },
       }
       toLoaction.query = this.$route.query ? this.$route.query : {}
-      this.$router.push(
-        toLoaction
-        // 可以解决问题，但是不能普遍使用
-        // (response) => {
-        //   console.log(response)
-        // },
-        // (error) => {
-        //   console.log(error)
-        // }
-      )
+      this.$router.push(toLoaction)
     },
+  },
+  mounted() {
+    this.$bus.$on('clearKeyword', () => {
+      this.keyword = ''
+    })
   },
 }
 </script>

@@ -11,13 +11,31 @@
             </li>
           </ul>
           <ul class="fl sui-tag">
-            <li class="with-x">手机</li>
-            <li class="with-x">iphone<i>×</i></li>
+            <!-- 分类的面包屑 -->
+            <li class="with-x" v-if="searchParams.categoryName">
+              {{searchParams.categoryName}}
+              <i @click="removeCategoryName">×</i>
+            </li>
+            <!-- 关键字的面包屑 -->
+            <li class="with-x" v-if="searchParams.keyword">
+              {{searchParams.keyword}}
+              <i @click="removeKeyword">×</i>
+            </li>
+            <!-- 品牌的面包屑 -->
+            <li class="with-x" v-if="searchParams.trademark">
+              {{searchParams.trademark.split(':')[1]}}
+              <i @click="removeTrademark">×</i>
+            </li>
+            <!-- 售卖属性的面包屑 -->
+            <li class="with-x" v-for="(prop, index) in searchParams.props" :key="index">
+              {{prop.split(':')[1]}}
+              <i @click="removeProp(index)">×</i>
+            </li>
           </ul>
         </div>
 
         <!--selector-->
-        <SearchSelector />
+        <SearchSelector @getTradeName="getTradeName" @getAttr="getAttr" />
 
         <!--details-->
         <div class="details clearfix">
@@ -142,6 +160,44 @@ export default {
     getData() {
       this.$store.dispatch('getSearchList', this.searchParams)
     },
+    // 删除分类的名字
+    removeCategoryName() {
+      this.searchParams.categoryName = undefined
+      this.searchParams.category1Id = undefined
+      this.searchParams.category2Id = undefined
+      this.searchParams.category3Id = undefined
+
+      this.$router.push({ name: 'search', params: this.$route.params })
+    },
+    // 删除关键词
+    removeKeyword() {
+      this.searchParams.keyword = undefined
+      this.$bus.$emit('clearKeyword')
+      this.$router.push({ name: 'search', query: this.$route.query })
+    },
+    // 自定义事件（收集品牌）的回调
+    getTradeName(trademark) {
+      this.searchParams.trademark = `${trademark.tmId}:${trademark.tmName}`
+      this.getData()
+    },
+    // 删除品牌的信息
+    removeTrademark() {
+      this.searchParams.trademark = undefined
+      this.getData()
+    },
+    // 自定义事件（售卖属性）的回调
+    getAttr(attr, attrValue) {
+      let prop = `${attr.attrId}:${attrValue}:${attr.attrName}`
+      if (this.searchParams.props.indexOf(prop) === -1) {
+        this.searchParams.props.push(prop)
+        this.getData()
+      }
+    },
+    // 删除售卖属性
+    removeProp(index) {
+      this.searchParams.props.splice(index, 1)
+      this.getData()
+    },
   },
   computed: {
     ...mapGetters(['goodsList']),
@@ -155,9 +211,6 @@ export default {
   },
   watch: {
     $route() {
-      this.searchParams.category1Id = ''
-      this.searchParams.category2Id = ''
-      this.searchParams.category3Id = ''
       Object.assign(this.searchParams, this.$route.params, this.$route.query)
       this.getData()
     },

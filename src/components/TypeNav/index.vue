@@ -61,7 +61,7 @@ export default {
   data() {
     return {
       listIndex: -1,
-      show: true,
+      show: false,
     }
   },
   methods: {
@@ -76,7 +76,7 @@ export default {
     // 鼠标离开后处理
     leaveShow() {
       this.listIndex = -1
-      if (this.$route.path === '/search') {
+      if (this.$route.path.slice(0, 6) !== '/home') {
         this.show = false
       }
     },
@@ -109,8 +109,8 @@ export default {
 
   mounted() {
     // 当组件挂载完毕，发送请求获取数据，存储到仓库
-    if (this.$route.path.slice(0, 7) === '/search') {
-      this.show = false
+    if (this.$route.path.slice(0, 6) === '/home') {
+      this.show = true
     }
   },
 

@@ -4,7 +4,7 @@
       <div class="fl key brand">品牌</div>
       <div class="value logos">
         <ul class="logo-list">
-          <li v-for="tm in trademarkList" :key="tm.tmId">{{tm.tmName}}</li>
+          <li v-for="tm in trademarkList" :key="tm.tmId" @click="sendTradeName(tm)">{{tm.tmName}}</li>
         </ul>
       </div>
       <div class="ext">
@@ -16,7 +16,7 @@
       <div class="fl key">{{attr.attrName}}</div>
       <div class="fl value">
         <ul class="type-list">
-          <li v-for="(attrValue,index) in attr.attrValueList" :key="index">
+          <li v-for="(attrValue,index) in attr.attrValueList" :key="index" @click="sendAttr(attr,attrValue)">
             <a>{{attrValue}}</a>
           </li>
         </ul>
@@ -33,6 +33,16 @@ export default {
   name: 'SearchSelector',
   computed: {
     ...mapGetters(['attrsList', 'trademarkList']),
+  },
+  methods: {
+    // 品牌的自定义事件
+    sendTradeName(trademark) {
+      this.$emit('getTradeName', trademark)
+    },
+    // 售卖属性的自定义事件
+    sendAttr(attr, attrValue) {
+      this.$emit('getAttr', attr, attrValue)
+    },
   },
 }
 </script>
