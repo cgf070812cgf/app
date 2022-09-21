@@ -89,7 +89,8 @@
             </ul>
           </div>
           <!-- 分页器 -->
-          <PaginationVue />
+          <PaginationVue :pageNo="searchParams.pageNo" :pageSize="searchParams.pageSize" :total="total" :continues="5" @getPageNo="getPageNo" />
+
         </div>
       </div>
     </div>
@@ -179,9 +180,14 @@ export default {
       this.searchParams.order = newOrder
       this.getData()
     },
+    // 自定义事件（获取第几页）的回调
+    getPageNo(page) {
+      this.searchParams.pageNo = page
+      this.getData()
+    },
   },
   computed: {
-    ...mapGetters(['goodsList']),
+    ...mapGetters(['goodsList', 'total']),
     isOne() {
       return this.searchParams.order.indexOf('1') !== -1
     },

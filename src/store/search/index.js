@@ -24,6 +24,7 @@ const getters = {
   attrsList: (state) => state.searchList.attrsList || [],
   goodsList: (state) => state.searchList.goodsList || [],
   trademarkList: (state) => state.searchList.trademarkList || [],
+  total: (state) => state.searchList.total || '',
 }
 
 export default {

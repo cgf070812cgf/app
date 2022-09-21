@@ -1,23 +1,61 @@
 <template>
   <div class="pagination">
-    <button>上一页</button>
-    <button>1</button>
-    <button>···</button>
-    <button>3</button>
-    <button>4</button>
-    <button>5</button>
-    <button>6</button>
-    <button>7</button>
-    <button>···</button>
-    <button>9</button>
-    <button>下一页</button>
-    <button style="margin-left: 30px">共 60 条</button>
+    <button :disabled="pageNo===1" @click="sendPage(pageNo-1)">上一页</button>
+    <button v-if="startNumAndEndNum.start>1" @click="sendPage(1)" :class="{active:pageNo===1}">1</button>
+    <button v-if="startNumAndEndNum.start>2">···</button>
+
+    <!-- 中间部分 -->
+    <template v-for="(page,index) in startNumAndEndNum.end">
+      <button :key="index" v-if="page>=startNumAndEndNum.start" @click="sendPage(page)" :class="{active:pageNo===page}">{{page}} </button>
+    </template>
+
+    <button v-if="startNumAndEndNum.end<(totalPages-1)">···</button>
+    <button v-if="startNumAndEndNum.end<totalPages" @click="sendPage(totalPages)" :class="{active:pageNo===totalPages}">{{totalPages}}</button>
+    <button :disabled="pageNo===totalPages" @click="sendPage(pageNo+1)">下一页</button>
+
+    <button style="margin-left: 30px">共 {{total}} 条</button>
   </div>
 </template>
 
 <script>
 export default {
   name: 'PaginationVue',
+  props: ['pageNo', 'pageSize', 'total', 'continues'],
+  methods: {
+    sendPage(page) {
+      this.$emit('getPageNo', page)
+    },
+  },
+  computed: {
+    // 共多少页
+    totalPages() {
+      // ceil向上取整
+      return Math.ceil(this.total / this.pageSize)
+    },
+    // 计算连续页码的起始和结束的数字
+    startNumAndEndNum() {
+      let start = 0,
+        end = 0
+      // 连续页码至少为5页，若有不正常的现象（总页码少于5页）
+      if (this.continues > this.totalPages) {
+        start = 1
+        end = this.totalPages
+      } else {
+        // 正常现象
+        start = this.pageNo - Math.floor(this.continues / 2)
+        end = this.pageNo + Math.floor(this.continues / 2)
+        if (start < 1) {
+          start = 1
+          end = this.continues
+        }
+        if (end > this.totalPages) {
+          start = this.totalPages - this.continues + 1
+          end = this.totalPages
+        }
+      }
+      return { start, end }
+    },
+  },
 }
 </script>
 
