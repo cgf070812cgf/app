@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 // 引入小仓库
 import home from './home'
 import search from './search'
+import detail from './detail'
 
 Vue.use(Vuex)
 
@@ -11,6 +12,7 @@ export default new Vuex.Store({
   // 实现Vue模块化开发
   modules: {
     home,
-    search
+    search,
+    detail
   }
 })

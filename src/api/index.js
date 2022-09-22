@@ -13,5 +13,8 @@ export const reqGetFloorList = () => mockRequests.get('/floor')
 
 // 获取搜索模块数据的接口
 // /api/list post 有参数：
+export const reqGetSearchInfo = (params) => requests({ url: '/list', method: 'POST', data: params })
 
-export const reqGetSearchInfo = (params) => requests({ url: '/list', method: 'POST', data: params }) 
+// 获取产品详情信息的接口
+// /api/item/{ skuId } get 有参数
+export const reqGetGoodsList = (skuId) => requests.get(`/item/${skuId}`)
