@@ -3,6 +3,9 @@ import axios from 'axios'
 import nprogress from 'nprogress'
 import 'nprogress/nprogress.css'
 
+// 引入仓库
+import store from '@/store'
+
 const requests = axios.create({
   baseURL: '/api',
   timeout: 5000
@@ -13,7 +16,11 @@ requests.interceptors.request.use(config => {
   // 在发送请求之前进行处理
 
   nprogress.start() // 开启进度条
-
+  // 判断仓库中是否有游客的个人信息
+  if (store.state.detail.uuid_token) {
+    // 给请求添加请求头字段（userTempId）
+    config.headers.userTempId = store.state.detail.uuid_token
+  }
   return config
 
 }, error => {

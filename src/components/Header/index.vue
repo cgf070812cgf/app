@@ -14,14 +14,14 @@
           </p>
         </div>
         <div class="typeList">
-          <a href="javascript:void(0);">我的订单</a>
-          <a href="javascript:void(0);">我的购物车</a>
-          <a href="javascript:void(0);">我的尚品汇</a>
-          <a href="javascript:void(0);">尚品汇会员</a>
-          <a href="javascript:void(0);">企业采购</a>
-          <a href="javascript:void(0);">关注尚品汇</a>
-          <a href="javascript:void(0);">合作招商</a>
-          <a href="javascript:void(0);">商家后台</a>
+          <a href="#none">我的订单</a>
+          <a href="#none">我的购物车</a>
+          <a href="#none">我的尚品汇</a>
+          <a href="#none">尚品汇会员</a>
+          <a href="#none">企业采购</a>
+          <a href="#none">关注尚品汇</a>
+          <a href="#none">合作招商</a>
+          <a href="#none">商家后台</a>
         </div>
       </div>
     </div>

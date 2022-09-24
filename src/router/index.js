@@ -29,5 +29,9 @@ VueRouter.prototype.replace = function (location, resolve, reject) {
 }
 // 配置路由
 export default new VueRouter({
-  routes
+  routes,
+  // 对于页面跳转，全部都返回到页面顶部
+  scrollBehavior () {
+    return { x: 0, y: 0 }
+  },
 })

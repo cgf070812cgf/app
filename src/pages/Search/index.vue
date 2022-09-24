@@ -7,7 +7,7 @@
         <div class="bread">
           <ul class="fl sui-breadcrumb">
             <li>
-              <a href="javascript:void(0);">全部结果</a>
+              <a href="#none">全部结果</a>
             </li>
           </ul>
           <ul class="fl sui-tag">
@@ -44,13 +44,13 @@
               <!-- 价格结构 -->
               <ul class="sui-nav">
                 <li :class="{active:isOne}" @click="changeOrder('1')">
-                  <a href="javascript:void(0);">
+                  <a href="#none">
                     综合
                     <span v-show="isOne" class="iconfont" :class="{'icon-direction-up':isUp,'icon-direction-down':isDown}"></span>
                   </a>
                 </li>
                 <li :class=" {active:isTwo}" @click="changeOrder('2')">
-                  <a href="javascript:void(0);">
+                  <a href="#none">
                     价格
                     <span v-show="isTwo" class="iconfont" :class="{'icon-direction-up':isUp,'icon-direction-down':isDown}"></span>
                   </a>
@@ -75,14 +75,16 @@
                     </strong>
                   </div>
                   <div class="attr">
-                    <a target="_blank" href="item.html" :title="good.title">{{good.title}}</a>
+                    <a target="_blank" href="#none" :title="good.title">{{good.title}}</a>
                   </div>
                   <div class="commit">
                     <i class="command">已有<span>2000</span>人评价</i>
                   </div>
                   <div class="operate">
-                    <a href="success-cart.html" target="_blank" class="sui-btn btn-bordered btn-danger">加入购物车</a>
-                    <a href="javascript:void(0);" class="sui-btn btn-bordered">收藏</a>
+                    <router-link :to="`detail/${good.id}`" target="_blank" class="sui-btn btn-bordered btn-danger">
+                      加入购物车
+                    </router-link>
+                    <a href="#none" class="sui-btn btn-bordered">收藏</a>
                   </div>
                 </div>
               </li>
@@ -99,7 +101,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import SearchSelector from './SearchSelector/SearchSelector'
+import SearchSelector from './SearchSelector'
 
 export default {
   name: 'SearchVue',

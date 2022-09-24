@@ -19,12 +19,12 @@
                   <div class="subitem" v-for="c2 in c1.categoryChild" :key="c2.categoryId">
                     <dl class="fore">
                       <dt>
-                        <a :data-categoryName="c2.categoryName" :data-category2Id="c2.categoryId">{{c2.categoryName}}</a>
+                        <a href="#none" :data-categoryName="c2.categoryName" :data-category2Id="c2.categoryId">{{c2.categoryName}}</a>
                       </dt>
                       <!-- 三级分类 -->
                       <dd>
                         <em v-for="c3 in c2.categoryChild" :key="c3.categoryId">
-                          <a :data-categoryName="c3.categoryName" :data-category3Id="c3.categoryId">{{c3.categoryName}}</a>
+                          <a href="#none" :data-categoryName="c3.categoryName" :data-category3Id="c3.categoryId">{{c3.categoryName}}</a>
                         </em>
                       </dd>
                     </dl>
@@ -37,14 +37,14 @@
       </div>
 
       <nav class="nav">
-        <a href="javascript:void(0);">服装城</a>
-        <a href="javascript:void(0);">美妆馆</a>
-        <a href="javascript:void(0);">尚品汇超市</a>
-        <a href="javascript:void(0);">全球购</a>
-        <a href="javascript:void(0);">闪购</a>
-        <a href="javascript:void(0);">团购</a>
-        <a href="javascript:void(0);">有趣</a>
-        <a href="javascript:void(0);">秒杀</a>
+        <a href="#none">服装城</a>
+        <a href="#none">美妆馆</a>
+        <a href="#none">尚品汇超市</a>
+        <a href="#none">全球购</a>
+        <a href="#none">闪购</a>
+        <a href="#none">团购</a>
+        <a href="#none">有趣</a>
+        <a href="#none">秒杀</a>
       </nav>
 
     </div>

@@ -77,7 +77,7 @@
                 <a href="javascript:" class="mins" @click="skuNum<1?skuNum=1:skuNum--">-</a>
               </div>
               <div class="add">
-                <a href="javascript:">加入购物车</a>
+                <a @click="addShopCar($route.params.skuId,skuNum)">加入购物车</a>
               </div>
             </div>
           </div>
@@ -366,6 +366,24 @@ export default {
       } else {
         this.skuNum = parseInt(this.skuNum)
       }
+    },
+    async addShopCar(skuId, skuNum) {
+      // 发送请求-->将产品添加到数据库
+      try {
+        await this.$store.dispatch('addOrUpdateShopCar', {
+          skuId,
+          skuNum,
+        })
+        this.$router.push({
+          path: '/addcartsuccess',
+          query: { skuNum: this.skuNum },
+        })
+        sessionStorage.setItem('skuInfo', JSON.stringify(this.skuInfo))
+      } catch (error) {
+        console.log(error)
+      }
+      // 服务器储存成功-->进行路由跳转
+      // 失败-->给用户提示
     },
   },
 }

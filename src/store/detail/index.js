@@ -1,12 +1,22 @@
-import { reqGetGoodsList } from '../../api'
+import { reqGetGoodsList, reqAddOrUpdateShopCar } from '../../api'
+import { getUUID } from '../../utils/uuid_token'
 const state = {
-  goodsList: {}
+  goodsList: {},
+  uuid_token: getUUID()
 }
 const actions = {
   async getGoodsList ({ commit }, skuId) {
     let result = await reqGetGoodsList(skuId)
     if (result.code === 200) {
       commit('SETGOODSLIST', result.data)
+    }
+  },
+  async addOrUpdateShopCar (_, { skuId, skuNum }) {
+    let result = await reqAddOrUpdateShopCar(skuId, skuNum)
+    if (result.code === 200) {
+      return 'success'
+    } else {
+      return Promise.reject(new Error('faile'))
     }
   }
 }
