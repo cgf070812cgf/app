@@ -7,8 +7,8 @@
 </template>
 
 <script>
-import HeaderVue from './components/Header'
-import FooterVue from './components/Footer'
+import HeaderVue from '@/components/Header'
+import FooterVue from '@/components/Footer'
 export default {
   name: 'App',
   components: {

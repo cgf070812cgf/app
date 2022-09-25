@@ -1,4 +1,4 @@
-import { reqGetShopCarList, reqDeleteShopCarSku, reqUpdateChecked } from '../../api'
+import { reqGetShopCarList, reqDeleteShopCarSku, reqUpdateChecked } from '@/api'
 const state = {
   shopCarListArray: []
 }
@@ -12,17 +12,17 @@ const actions = {
   async deleteShopCarSku (_, skuId) {
     let result = await reqDeleteShopCarSku(skuId)
     if (result.code === 200) {
-      return 'success'
+      return result.message
     } else {
-      return Promise.reject(new Error('faile'))
+      return Promise.reject(new Error(result.message))
     }
   },
   async updateChecked (_, { skuId, isChecked }) {
     let result = await reqUpdateChecked(skuId, isChecked)
     if (result.code === 200) {
-      return 'success'
+      return result.message
     } else {
-      return Promise.reject(new Error('faile'))
+      return Promise.reject(new Error(result.message))
     }
   },
   updateAllChecked ({ dispatch, state }, isChecked) {

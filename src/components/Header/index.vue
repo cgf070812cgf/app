@@ -5,12 +5,15 @@
       <div class="container">
         <div class="loginList">
           <p>尚品汇欢迎您！</p>
-          <p>
+          <p v-if="!userInfo.nickName">
             <span>请</span>
             <router-link to="/login">登录</router-link>
             <router-link class="register" to="/register">免费注册</router-link>
-            <!-- <a href="###">登录</a>
-            <a href="###" class="register">免费注册</a> -->
+          </p>
+          <p v-else>
+            <span>你好&nbsp;&nbsp;</span>
+            <a href="#none">{{userInfo.nickName}}</a>
+            <a href="#none" class="register" @click="logout">退出登陆</a>
           </p>
         </div>
         <div class="typeList">
@@ -43,12 +46,16 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
   name: 'HeaderVue',
   data() {
     return {
       keyword: '',
     }
+  },
+  computed: {
+    ...mapState({ userInfo: (state) => state.user.userInfo }),
   },
   methods: {
     // 传参
@@ -71,6 +78,14 @@ export default {
       }
       toLoaction.query = this.$route.query ? this.$route.query : {}
       this.$router.push(toLoaction)
+    },
+    async logout() {
+      try {
+        await this.$store.dispatch('userLogout')
+        this.$router.push('/home')
+      } catch (error) {
+        alert(error.message)
+      }
     },
   },
   mounted() {

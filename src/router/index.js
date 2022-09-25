@@ -4,6 +4,9 @@ import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 
 import routes from './route'
+import store from '@/store'
+import { clearUserToken } from '@/utils/userToken'
+
 
 let originPush = VueRouter.prototype.push
 let originReplace = VueRouter.prototype.replace
@@ -28,10 +31,48 @@ VueRouter.prototype.replace = function (location, resolve, reject) {
   }
 }
 // 配置路由
-export default new VueRouter({
+let router = new VueRouter({
   routes,
   // 对于页面跳转，全部都返回到页面顶部
   scrollBehavior () {
     return { x: 0, y: 0 }
   },
 })
+
+router.beforeEach(async (to, from, next) => {
+  let token = store.state.user.userToken
+  let name = store.state.user.userInfo.nickName
+  if (token) {
+    // 用户已经登陆了
+    if (to.path === '/login' || to.path === '/register') {
+      // 想跳转到登陆或注册页面，将被拒绝，并且直接跳转到home页面
+      next('/home')
+    } else {
+      // 跳转到非登陆或注册页面
+      // 判断有无用户信息
+      if (name) {
+        // 有用户信息，正常跳转
+        next()
+      } else {
+        // 没有用户信息
+        // 获取用户信息进行跳转
+        try {
+          // 获取用户信息成功，正常跳转
+          await store.dispatch('getUserInfo')
+          next()
+        } catch (error) {
+          // 获取用户信息失败，登陆信息失效
+          // 跳转回登陆页，重新登陆
+          clearUserToken()
+          alert('登陆信息失效，请重新登陆')
+          next('/login')
+        }
+      }
+    }
+  } else {
+    // 用户未登陆
+    next()
+  }
+})
+
+export default router

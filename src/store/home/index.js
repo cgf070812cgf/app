@@ -1,4 +1,4 @@
-import { reqGetCategoryList, reqGetBannerList, reqGetFloorList } from '../../api'
+import { reqGetCategoryList, reqGetBannerList, reqGetFloorList } from '@/api'
 
 // state:仓库存储数据的地方
 const state = {

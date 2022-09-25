@@ -21,6 +21,14 @@ requests.interceptors.request.use(config => {
     // 给请求添加请求头字段（userTempId）
     config.headers.userTempId = store.state.detail.uuid_token
   }
+
+  // 判断仓库中是否有登陆用户的个人信息
+  if
+    (store.state.user.userToken) {
+    // 给请求添加请求头字段（token）
+    config.headers.token = store.state.user.userToken
+  }
+
   return config
 
 }, error => {

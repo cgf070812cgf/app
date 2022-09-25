@@ -380,7 +380,7 @@ export default {
         })
         sessionStorage.setItem('skuInfo', JSON.stringify(this.skuInfo))
       } catch (error) {
-        console.log(error)
+        alert(error.message)
       }
       // 服务器储存成功-->进行路由跳转
       // 失败-->给用户提示

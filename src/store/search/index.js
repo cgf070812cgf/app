@@ -1,4 +1,4 @@
-import { reqGetSearchInfo } from '../../api'
+import { reqGetSearchInfo } from '@/api'
 
 // state:仓库存储数据的地方
 const state = {

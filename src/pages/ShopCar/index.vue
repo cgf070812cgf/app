@@ -52,7 +52,7 @@
       </div>
       <div class="money-box">
         <div class="chosed">已选择
-          <span>0</span>件商品
+          <span>{{checkedNum}}</span>件商品
         </div>
         <div class="sumprice">
           <em>总价（不含运费） ：</em>
@@ -79,12 +79,19 @@ export default {
     totalPrice() {
       let total = 0
       this.cartInfoList.forEach((item) => {
-        total += item.skuNum * item.skuPrice
+        if (item.isChecked === 1) total += item.skuNum * item.skuPrice
       })
       return total
     },
     isChecked() {
       return this.cartInfoList.every((item) => item.isChecked === 1)
+    },
+    checkedNum() {
+      let num = 0
+      this.cartInfoList.forEach((item) => {
+        if (item.isChecked === 1) num += 1
+      })
+      return num
     },
   },
   methods: {
@@ -112,7 +119,7 @@ export default {
         })
         this.getData()
       } catch (error) {
-        alert(error)
+        alert(error.message)
       }
     }, 500),
     // 删除产品
@@ -121,7 +128,7 @@ export default {
         await this.$store.dispatch('deleteShopCarSku', skuId)
         this.getData()
       } catch (error) {
-        alert(error)
+        alert(error.message)
       }
     },
     // 更新产品选中状态
@@ -133,7 +140,7 @@ export default {
         })
         this.getData()
       } catch (error) {
-        alert(error)
+        alert(error.message)
       }
     },
     // 更新全选状态
@@ -145,7 +152,7 @@ export default {
         )
         this.getData()
       } catch (error) {
-        alert(error)
+        alert(error.message)
       }
       // this.cartInfoList.forEach((item) => {
       //   this.updateChecked(item.skuId, this.isChecked ? 1 : 0)
@@ -157,7 +164,7 @@ export default {
         await this.$store.dispatch('deleteAllChecked')
         this.getData()
       } catch (error) {
-        alert(error)
+        alert(error.message)
       }
 
       // this.cartInfoList.forEach((item) => {
