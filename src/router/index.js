@@ -5,7 +5,6 @@ Vue.use(VueRouter)
 
 import routes from './route'
 import store from '@/store'
-import { clearUserToken } from '@/utils/userToken'
 
 
 let originPush = VueRouter.prototype.push
@@ -63,7 +62,7 @@ router.beforeEach(async (to, from, next) => {
         } catch (error) {
           // 获取用户信息失败，登陆信息失效
           // 跳转回登陆页，重新登陆
-          clearUserToken()
+          store.commit('CLEARUSERTOKEN')
           alert('登陆信息失效，请重新登陆')
           next('/login')
         }

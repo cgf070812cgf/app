@@ -18,7 +18,7 @@
         </div>
         <div class="typeList">
           <a href="#none">我的订单</a>
-          <a href="#none">我的购物车</a>
+          <a href="#none" @click="goToShopCar">我的购物车</a>
           <a href="#none">我的尚品汇</a>
           <a href="#none">尚品汇会员</a>
           <a href="#none">企业采购</a>
@@ -86,6 +86,9 @@ export default {
       } catch (error) {
         alert(error.message)
       }
+    },
+    goToShopCar() {
+      this.$router.push('/shopcar')
     },
   },
   mounted() {

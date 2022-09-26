@@ -5,7 +5,6 @@ import mockRequests from "./mockRequest"
 // 三级联动接口
 // /api/product/getBaseCategoryList 
 // method:get 
-// 无参数
 export const reqGetCategoryList = () => requests.get('/product/getBaseCategoryList')
 
 // 获取home轮播图的接口
@@ -34,7 +33,6 @@ export const reqAddOrUpdateShopCar = (skuId, skuNum) => requests.post(`/cart/add
 // 获取用户购物车的信息
 // /api/cart/cartList 
 // method:get 
-// 无参数
 export const reqGetShopCarList = () => requests.get(`/cart/cartList`)
 
 // 删除购物车中的物品
@@ -76,3 +74,32 @@ export const reqGetUserInfo = () => requests.get('/user/passport/auth/getUserInf
 // /api/user/passport/logout
 // method:get
 export const reqUserLogout = () => requests.get('/user/passport/logout')
+
+// 获取用户地址信息
+// /api/user/userAddress/auth/findUserAddressList
+// method:get
+export const reqGetAddressList = () => mockRequests.get('/address')
+// export const reqGetAddressList = () => requests.get('/user/userAddress/auth/findUserAddressList')
+
+// 获取订单交易信息
+// /api/order/auth/trade
+// method:get
+export const reqGetTradeList = () => requests.get('/order/auth/trade')
+
+// 提交订单
+// /api/order/auth/submitOrder?tradeNo={tradeNo}
+// method:post
+// 有参数:tradeNo consignee consigneeTel deliveryAddres paymentWay orderComment orderDetailList
+export const reqSubmitOrder = (tradeNo, data) => requests({ url: `/order/auth/submitOrder?tradeNo=${tradeNo}`, data, method: 'POST' })
+
+// 获取订单的支付信息
+// /api/payment/weixin/createNative/{orderId}
+// method:get
+// 有参数:orderId
+export const reqGetPayInfo = orderId => requests.get(`/payment/weixin/createNative/${orderId}`)
+
+// 查询订单的支付状态
+// /api/payment/weixin/queryPayStatus/{orderId}
+// method:get
+// 有参数:orderId
+export const reqGetPayStatus = orderId => requests.get(`/payment/weixin/queryPayStatus/${orderId}`)

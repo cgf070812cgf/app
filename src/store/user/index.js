@@ -68,7 +68,7 @@ const mutations = {
     state.userInfo = value
   },
   CLEARUSERTOKEN (state) {
-    state.token = ''
+    state.userToken = ''
     state.userInfo = {}
     clearUserToken()
   },

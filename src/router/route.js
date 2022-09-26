@@ -5,6 +5,10 @@ import Search from '@/pages/Search'
 import Detail from '@/pages/Detail'
 import AddCartSuccess from '@/pages/AddCartSuccess'
 import ShopCar from '@/pages/ShopCar'
+import Trade from '@/pages/Trade'
+import Pay from '@/pages/Pay'
+import PaySuccess from '@/pages/PaySuccess'
+import Center from '@/pages/Center'
 
 export default [
   {
@@ -41,6 +45,26 @@ export default [
   {
     path: '/shopcar',
     component: ShopCar,
+    meta: { show: true }
+  },
+  {
+    path: '/trade',
+    component: Trade,
+    meta: { show: true }
+  },
+  {
+    path: '/pay',
+    component: Pay,
+    meta: { show: true }
+  },
+  {
+    path: '/paysuccess',
+    component: PaySuccess,
+    meta: { show: true }
+  },
+  {
+    path: '/center',
+    component: Center,
     meta: { show: true }
   },
   // 重定向，初始访问指定到home页面

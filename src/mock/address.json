@@ -1,0 +1,35 @@
+[
+    {
+        "id": 2828,
+        "userAddress": "中国浙江省杭州市余杭区文一西路969号",
+        "userId": 2,
+        "provinceId": 6,
+        "consignee": "矮胖的校尉",
+        "phoneNum": "13862922987",
+        "isDefault": "1",
+        "regionId": 2,
+        "fullAddress": "中国浙江省杭州市余杭区文一西路969号"
+    },
+    {
+        "id": 2929,
+        "userAddress": "中国广东省深圳市南山区深南大道10000号腾讯大厦",
+        "userId": 2,
+        "provinceId": 24,
+        "consignee": "28",
+        "phoneNum": "13773808807",
+        "isDefault": "0",
+        "regionId": 4,
+        "fullAddress": "中国广东省深圳市南山区深南大道10000号腾讯大厦"
+    },
+    {
+        "id": 2255,
+        "userAddress": "北京市昌平区宏福科技园综合楼6层",
+        "userId": 2,
+        "provinceId": 1,
+        "consignee": "张三",
+        "phoneNum": "13772021010",
+        "isDefault": "0",
+        "regionId": 1,
+        "fullAddress": "北京市昌平区宏福科技园综合楼6层"
+    }
+]
