@@ -18,5 +18,6 @@ module.exports = defineConfig({
 
   // 关闭eslint语法检测
   lintOnSave: false,
-
+  // 打包的时不生产map文件
+  productionSourceMap: false
 })
