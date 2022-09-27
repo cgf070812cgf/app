@@ -27,8 +27,21 @@ import 'swiper/css/swiper.css'
 
 Vue.config.productionTip = false
 
+// 引入表单验证信息
+import '@/utils/validate'
+
 // 统一接受api文件里所有的请求函数
 import * as API from '@/api'
+
+// 引入图片懒加载插件
+import VueLazyload from 'vue-lazyload'
+// 引入加载图片
+import loadimage from '@/assets/loadimage.gif'
+//注册插件
+Vue.use(VueLazyload, {
+  //懒加载默认的图片
+  loading: loadimage
+})
 
 new Vue({
   render: h => h(App),
