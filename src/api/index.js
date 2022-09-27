@@ -103,3 +103,9 @@ export const reqGetPayInfo = orderId => requests.get(`/payment/weixin/createNati
 // method:get
 // 有参数:orderId
 export const reqGetPayStatus = orderId => requests.get(`/payment/weixin/queryPayStatus/${orderId}`)
+
+// 获取个人中心的数据
+// /api/order/auth/{page}/{limit}
+// method:get
+// 有参数:page limit
+export const reqGetOrderList = (page, limit) => requests.get(`/order/auth/${page}/${limit}`)

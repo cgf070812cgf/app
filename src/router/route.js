@@ -9,6 +9,10 @@ import Trade from '@/pages/Trade'
 import Pay from '@/pages/Pay'
 import PaySuccess from '@/pages/PaySuccess'
 import Center from '@/pages/Center'
+import MyOrder from '@/pages/Center/MyOrder'
+import GropuOrder from '@/pages/Center/GropuOrder'
+
+import store from '@/store'
 
 export default [
   {
@@ -50,22 +54,58 @@ export default [
   {
     path: '/trade',
     component: Trade,
-    meta: { show: true }
+    meta: { show: true },
+    beforeEnter: (to, from, next) => {
+      if (from.path === '/shopcar') {
+        next()
+      } else {
+        next(false)
+      }
+    }
   },
   {
     path: '/pay',
     component: Pay,
-    meta: { show: true }
+    meta: { show: true },
+    beforeEnter: (to, from, next) => {
+      if (from.path === '/trade' && store.state.trade.orderId) {
+        next()
+      } else {
+        next(false)
+      }
+    }
   },
   {
     path: '/paysuccess',
     component: PaySuccess,
-    meta: { show: true }
+    meta: { show: true },
+    beforeEnter: (to, from, next) => {
+      if (from.path === '/pay') {
+        next()
+      } else {
+        next(false)
+      }
+    }
   },
   {
     path: '/center',
     component: Center,
-    meta: { show: true }
+    meta: { show: true },
+    // 二级路由组件
+    children: [
+      {
+        path: 'myorder',
+        component: MyOrder,
+      },
+      {
+        path: 'grouporder',
+        component: GropuOrder,
+      },
+      {
+        path: '/center',
+        redirect: '/center/myorder'
+      }
+    ]
   },
   // 重定向，初始访问指定到home页面
   {

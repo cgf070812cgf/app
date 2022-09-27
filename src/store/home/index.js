@@ -31,7 +31,6 @@ const actions = {
       commit('SETFLOORLIST', result.data)
     }
   }
-
 }
 // mutations:修改state的唯一手段
 const mutations = {

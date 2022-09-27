@@ -59,7 +59,7 @@
           <i class="summoney">{{totalPrice}}</i>
         </div>
         <div class="sumbtn">
-          <router-link class="sum-btn" href="#none" to="/trade">结算</router-link>
+          <a class="sum-btn" @click="toTrade">结算</a>
         </div>
       </div>
     </div>
@@ -170,6 +170,10 @@ export default {
       // this.cartInfoList.forEach((item) => {
       //   item.isChecked === 1 ? this.deleteSku(item.skuId) : ''
       // })
+    },
+    // 去结算
+    toTrade() {
+      this.$router.push('/trade')
     },
   },
   mounted() {

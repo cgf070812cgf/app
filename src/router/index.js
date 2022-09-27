@@ -41,6 +41,8 @@ let router = new VueRouter({
 router.beforeEach(async (to, from, next) => {
   let token = store.state.user.userToken
   let name = store.state.user.userInfo.nickName
+  setTimeout(() => store.state.home.confirmToNext = false, 100)
+
   if (token) {
     // 用户已经登陆了
     if (to.path === '/login' || to.path === '/register') {
@@ -70,7 +72,10 @@ router.beforeEach(async (to, from, next) => {
     }
   } else {
     // 用户未登陆
-    next()
+    let toPath = to.path
+    if (toPath.indexOf('/trade') !== -1 || toPath.indexOf('/pay') !== -1 || toPath.indexOf('/center') !== -1) next(`/login?redirect=${toPath}`)
+    else if (toPath.indexOf('/add') !== -1) next('/login')
+    else next()
   }
 })
 

@@ -84,11 +84,19 @@ export default {
             phone: this.username,
             password: this.password,
           }))
-        this.$router.push({ path: '/home' })
+        this.$router.push(
+          this.$route.query.redriect === '/home' ||
+            this.$route.query.redriect === undefined
+            ? '/home'
+            : this.$route.query.redirect
+        )
       } catch (error) {
         alert(error.message)
       }
     },
+  },
+  mounted() {
+    console.log(this.$route.query.redriect)
   },
 }
 </script>

@@ -120,6 +120,7 @@ export default {
       }
       let result = await this.$api.reqSubmitOrder(tradeNo, data)
       if (result.code === 200) {
+        this.$store.commit('SETORDERID', result.data)
         this.$router.push(`/pay?orderId=${result.data}`)
       } else {
         alert(result.message)

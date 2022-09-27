@@ -1,7 +1,8 @@
 import { reqGetAddressList, reqGetTradeList } from '@/api'
 const state = {
   addressList: [],
-  tradeList: {}
+  tradeList: {},
+  orderId: undefined,
 }
 const actions = {
   async getAddressList ({ commit }) {
@@ -29,6 +30,9 @@ const mutations = {
   },
   SETTRADELIST (state, value) {
     state.tradeList = value
+  },
+  SETORDERID (state, value) {
+    state.orderId = value
   }
 }
 const getters = {}

@@ -1,6 +1,6 @@
 <template>
   <div>
-
+    团购订单
   </div>
 </template>
 
